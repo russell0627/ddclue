@@ -13,7 +13,7 @@ class ThemeService extends _$ThemeService {
   @override
   ThemeState build() {
     return ThemeState(
-      light: FlexThemeData.light(
+      light: _modTheme(FlexThemeData.light(
         scheme: colorScheme,
         surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
         blendLevel: 13,
@@ -24,18 +24,75 @@ class ThemeService extends _$ThemeService {
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
         useMaterial3: true,
         swapLegacyOnMaterial3: true,
+      )),
+      dark: _modTheme(FlexThemeData.dark(
+        scheme: colorScheme,
+        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+        blendLevel: 13,
+        subThemesData: const FlexSubThemesData(
+          blendOnLevel: 20,
+          useM2StyleDividerInM3: true,
+        ),
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        useMaterial3: true,
+        swapLegacyOnMaterial3: true,
+      )),
+    );
+  }
+  /// Use this to customize the color scheme (current code is an example).
+  ThemeData _modTheme(ThemeData data) {
+    final textTheme = _buildTextTheme(data.textTheme);
+
+    return data.copyWith(
+      appBarTheme: data.appBarTheme.copyWith(
+        titleTextStyle: textTheme.displayMedium!.copyWith(color: Colors.white),
       ),
-      dark: FlexThemeData.dark(
-        scheme: colorScheme,
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 13,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 20,
-          useM2StyleDividerInM3: true,
-        ),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-        swapLegacyOnMaterial3: true,
+      inputDecorationTheme: data.inputDecorationTheme.copyWith(
+        filled: false,
+      ),
+      // textTheme: textTheme,
+    );
+  }
+
+  /// Use this to customize the text theme (current code is an example).
+  TextTheme _buildTextTheme(TextTheme base) {
+    return base.copyWith(
+      displayLarge: base.displayLarge!.copyWith(
+        fontFamily: 'HardGrunge',
+      ),
+      displayMedium: base.displayMedium!.copyWith(
+        fontFamily: 'HardGrunge',
+      ),
+      displaySmall: base.displaySmall!.copyWith(
+        fontFamily: 'HardGrunge',
+      ),
+      headlineLarge: base.headlineLarge!.copyWith(
+        fontFamily: 'Dystopia',
+      ),
+      headlineMedium: base.headlineMedium!.copyWith(
+        fontFamily: 'Dystopia',
+      ),
+      headlineSmall: base.headlineSmall!.copyWith(
+        fontFamily: 'Dystopia',
+      ),
+      titleLarge: base.titleLarge!.copyWith(
+        fontFamily: 'Technic',
+      ),
+      // TextField default
+      titleMedium: base.titleMedium!.copyWith(
+        fontFamily: 'Technic',
+      ),
+      titleSmall: base.titleSmall!.copyWith(
+        fontFamily: 'Technic',
+      ),
+      bodyLarge: base.bodyLarge!.copyWith(
+        fontFamily: 'Technic',
+      ),
+      bodyMedium: base.bodyMedium!.copyWith(
+        fontFamily: 'Technic',
+      ),
+      bodySmall: base.bodySmall!.copyWith(
+        fontFamily: 'Technic',
       ),
     );
   }
